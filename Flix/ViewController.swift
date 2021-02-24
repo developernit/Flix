@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.tableView.reloadData()
             
-            print(dataDictionary)
+            //print(dataDictionary)
             
             
               // TODO: Get the array of movies
@@ -69,6 +69,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.posterView.af_setImage(withURL: posterUrl!)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        // print("Loading up the details screen")
+        
+        // Find the selected movie
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        // Pass the selected movie to the details view controller
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        // Additional setup after loading the view
+        
+        //print(movie["title"])
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
 }
